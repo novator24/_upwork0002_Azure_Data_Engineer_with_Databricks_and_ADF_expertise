@@ -1,20 +1,6 @@
-# Databricks Data Engineering Demo Project
+Databricks Data Engineering Demo Project Architecture
+================================================================
 
-A comprehensive demonstration of data engineering skills using Databricks, showcasing ETL/ELT pipelines, Delta Lake, Spark optimization, and cloud integration.
-
-## 🚀 Project Overview
-
-This demo project demonstrates key data engineering capabilities including:
-- **ETL/ELT Pipelines**: PySpark-based data processing pipelines
-- **Delta Lake Integration**: ACID transactions and schema evolution
-- **Cloud Storage Integration**: AWS S3 and Azure Data Lake connectivity
-- **Data Quality & Monitoring**: Automated quality checks and performance monitoring
-- **CI/CD Pipeline**: GitHub Actions for automated deployment
-- **Performance Optimization**: Spark job tuning and cost efficiency
-
-## 📊 Project Architecture
-
-```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                           DATA SOURCES                                     │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                       │
@@ -55,139 +41,46 @@ This demo project demonstrates key data engineering capabilities including:
 │  │  • Data Governance                                                │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────────────────────┘
-```
 
-### 🎯 **Key Components**
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        DATABRICKS PLATFORM                                │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│  │Apache Spark │  │Delta Lake   │  │   MLflow    │  │     dbt     │     │
+│  │             │  │             │  │             │  │             │     │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘     │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| **Data Sources** | AWS S3, Azure Data Lake, APIs | Raw data ingestion |
-| **Bronze Layer** | Delta Lake, PySpark | Raw data storage with validation |
-| **Silver Layer** | Delta Lake, PySpark | Data cleaning and transformation |
-| **Gold Layer** | Delta Lake, PySpark | Business intelligence and reporting |
-| **Platform** | Databricks | Unified analytics platform |
-| **Quality** | Great Expectations | Data validation and monitoring |
-| **CI/CD** | GitHub Actions, Terraform | Automated deployment |
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    DATA QUALITY & MONITORING                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│  │Validation   │  │Monitoring   │  │Alerting     │  │Great        │     │
+│  │             │  │             │  │             │  │Expectations │     │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘     │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-*For an interactive visual diagram, open [docs/project_diagram.html](docs/project_diagram.html) in your browser.*
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        CI/CD PIPELINE                                     │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│  │GitHub       │  │Terraform    │  │Automated    │  │Quality      │     │
+│  │Actions      │  │             │  │Testing      │  │Gates        │     │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘     │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-## 📁 Project Structure
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                        CLOUD INTEGRATION                                  │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
+│  │   AWS S3    │  │Azure Data   │  │Azure        │  │Cost         │     │
+│  │             │  │   Lake      │  │Databricks   │  │Optimization │     │
+│  └─────────────┘  └─────────────┘  └─────────────┘  └─────────────┘     │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-```
-├── notebooks/                 # Databricks notebooks
-│   ├── bronze/               # Data ingestion layer
-│   ├── silver/               # Data processing layer
-│   ├── gold/                 # Data presentation layer
-│   └── ml/                   # Machine learning workflows
-├── src/                      # Source code
-│   ├── pipelines/            # ETL pipeline modules
-│   ├── utils/                # Utility functions
-│   └── config/               # Configuration files
-├── tests/                    # Unit and integration tests
-├── infrastructure/            # Infrastructure as Code
-│   ├── terraform/            # Terraform configurations
-│   └── databricks/           # Databricks workspace setup
-├── monitoring/               # Monitoring and alerting
-├── docs/                     # Documentation
-└── .github/                  # CI/CD workflows
-```
-
-## 🛠️ Technologies Used
-
-- **Databricks**: Unified Analytics Platform
-- **Apache Spark**: Distributed computing engine
-- **Delta Lake**: ACID transactions for data lakes
-- **Python/Scala**: Programming languages
-- **AWS S3/Azure Data Lake**: Cloud storage
-- **GitHub Actions**: CI/CD pipeline
-- **MLflow**: Machine learning lifecycle
-- **dbt**: Data transformation
-- **Apache Airflow**: Workflow orchestration
-
-## 🚀 Quick Start
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd databricks-data-engineering-demo
-   ```
-
-2. **Set up Databricks workspace**
-   ```bash
-   cd infrastructure/terraform
-   terraform init
-   terraform plan
-   terraform apply
-   ```
-
-3. **Deploy pipelines**
-   ```bash
-   python -m src.pipelines.deploy
-   ```
-
-4. **Run data quality checks**
-   ```bash
-   python -m tests.data_quality
-   ```
-
-## 📊 Data Pipeline Architecture
-
-### Bronze Layer (Raw Data)
-- Ingests data from multiple sources
-- Preserves original data format
-- Implements basic validation
-
-### Silver Layer (Cleaned Data)
-- Applies business rules and transformations
-- Implements data quality checks
-- Optimizes for query performance
-
-### Gold Layer (Business Logic)
-- Aggregated and curated datasets
-- Optimized for business intelligence
-- Implements data governance
-
-## 🔧 Key Features
-
-- **Scalable ETL/ELT Pipelines**: Handle large volumes of data efficiently
-- **Delta Lake Integration**: ACID transactions and schema evolution
-- **Cloud-Native**: AWS S3 and Azure Data Lake integration
-- **Data Quality Framework**: Automated validation and monitoring
-- **Performance Optimization**: Spark tuning and cost management
-- **CI/CD Integration**: Automated testing and deployment
-- **Monitoring & Alerting**: Real-time pipeline monitoring
-
-## 📈 Performance Optimization
-
-- **Partitioning Strategy**: Optimized data partitioning for query performance
-- **Caching**: Strategic use of Spark caching
-- **Resource Management**: Efficient cluster resource utilization
-- **Cost Optimization**: Right-sizing clusters and job scheduling
-
-## 🧪 Testing Strategy
-
-- **Unit Tests**: Individual component testing
-- **Integration Tests**: End-to-end pipeline testing
-- **Data Quality Tests**: Automated data validation
-- **Performance Tests**: Load and stress testing
-
-## 📚 Documentation
-
-- [Architecture Overview](docs/architecture.md)
-- [Pipeline Design](docs/pipelines.md)
-- [Deployment Guide](docs/deployment.md)
-- [Troubleshooting](docs/troubleshooting.md)
-- [Project Architecture Diagram](docs/project_diagram.html) - Interactive visual diagram
-- [ASCII Architecture Diagram](docs/ascii_diagram.txt) - Text-based architecture overview
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Key Features:
+• ETL/ELT Pipelines with PySpark/Scala
+• Delta Lake ACID transactions
+• Multi-cloud storage integration
+• Automated data quality checks
+• Performance optimization
+• CI/CD with GitHub Actions
+• Infrastructure as Code (Terraform)
+• MLflow and dbt integration
+• Cost optimization and monitoring 

@@ -1,0 +1,48 @@
+# Core dependencies for Databricks Data Engineering Demo
+pyspark==3.4.0
+delta-spark==2.4.0
+
+# Cloud storage and data processing
+boto3==1.28.0
+azure-storage-blob==12.17.0
+azure-identity==1.13.0
+
+# Data quality and validation
+great-expectations==0.17.0
+pandas==2.0.0
+numpy==1.24.0
+
+# Configuration and utilities
+pyyaml==6.0
+python-dotenv==1.0.0
+click==8.1.0
+
+# Monitoring and logging
+structlog==23.1.0
+prometheus-client==0.17.0
+
+# Testing and development
+pytest==7.4.0
+pytest-cov==4.1.0
+pytest-mock==3.11.0
+
+# Code quality
+black==23.7.0
+flake8==6.0.0
+isort==5.12.0
+mypy==1.5.0
+
+# Documentation
+sphinx==7.1.0
+sphinx-rtd-theme==1.3.0
+
+# MLflow for machine learning lifecycle
+mlflow==2.6.0
+
+# dbt for data transformation
+dbt-core==1.5.0
+dbt-spark==1.5.0
+
+# Apache Airflow for workflow orchestration
+apache-airflow==2.7.0
+apache-airflow-providers-databricks==3.0.0 

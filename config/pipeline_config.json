@@ -1,0 +1,65 @@
+{
+  "environment": "production",
+  "bronze_layer_path": "s3://data-lake/bronze",
+  "silver_layer_path": "s3://data-lake/silver",
+  "gold_layer_path": "s3://data-lake/gold",
+  
+  "spark_config": {
+    "spark.sql.adaptive.enabled": "true",
+    "spark.sql.adaptive.coalescePartitions.enabled": "true",
+    "spark.sql.adaptive.skewJoin.enabled": "true",
+    "spark.sql.extensions": "io.delta.sql.DeltaSparkSessionExtension",
+    "spark.sql.catalog.spark_catalog": "org.apache.spark.sql.delta.catalog.DeltaCatalog",
+    "spark.databricks.delta.optimizeWrite.enabled": "true",
+    "spark.databricks.delta.autoCompact.enabled": "true"
+  },
+  
+  "data_quality": {
+    "null_threshold": 0.1,
+    "duplicate_threshold": 0.05,
+    "data_freshness_hours": 24,
+    "quality_score_threshold": 0.8
+  },
+  
+  "cloud_storage": {
+    "aws": {
+      "region": "us-east-1",
+      "s3_bucket": "data-lake-bucket",
+      "access_key_id": "${AWS_ACCESS_KEY_ID}",
+      "secret_access_key": "${AWS_SECRET_ACCESS_KEY}"
+    },
+    "azure": {
+      "storage_account": "databricksdatalake",
+      "container": "data-lake-container",
+      "connection_string": "${AZURE_STORAGE_CONNECTION_STRING}"
+    }
+  },
+  
+  "databricks": {
+    "workspace_url": "${DATABRICKS_HOST}",
+    "token": "${DATABRICKS_TOKEN}",
+    "cluster_name": "data-processing-cluster",
+    "job_name": "Data Engineering Pipeline"
+  },
+  
+  "monitoring": {
+    "metrics_enabled": true,
+    "alerting_enabled": true,
+    "log_level": "INFO",
+    "retention_days": 30
+  },
+  
+  "pipeline_schedule": {
+    "bronze_layer": "0 0 1 * * ?",
+    "silver_layer": "0 30 1 * * ?",
+    "gold_layer": "0 0 2 * * ?",
+    "quality_checks": "0 15 2 * * ?"
+  },
+  
+  "performance": {
+    "auto_optimize": true,
+    "vacuum_retention_hours": 168,
+    "zorder_columns": ["_ingestion_timestamp", "_source"],
+    "partition_columns": ["date_partition"]
+  }
+} 
